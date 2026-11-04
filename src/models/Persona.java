@@ -1,9 +1,11 @@
 package models;
 
+import java.util.UUID;
+
 public class Persona {
     public String name;
     private String country ;
-    private String id ;
+    private String id;
     public boolean is_alive = true;
 
     public String getCountry(){
@@ -23,7 +25,23 @@ public class Persona {
                 '}';
     }
 
+    public String getName(){
+        return name;
+    }
 
+    public void setId(String id){
+        this.id = id;
+    }
 
+    public void setId(){
+        this.id = UUID.randomUUID().toString().substring(0, 4);
+    }
 
+    public String getId(){
+        return id;
+    }
+
+    public void setName(String newName){
+        this.name=newName;
+    }
 }

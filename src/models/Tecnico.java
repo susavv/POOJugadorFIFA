@@ -9,5 +9,9 @@ public class Tecnico extends Persona{
                 "club='" + club + '\'' +
                 "} " + super.toString();
     }
+
+    public void setClub(String club) {
+        this.club = club;
+    }
 }
 

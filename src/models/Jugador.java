@@ -12,9 +12,8 @@ public class Jugador extends Persona {
         this.nacimiento = nacimiento;
     }
 
-    public int getEdad()
-    {
-         return Period.between(
+    public int getEdad() {
+        return Period.between(
                 nacimiento,
                 LocalDate.now()
         ).getYears();
@@ -31,17 +30,16 @@ public class Jugador extends Persona {
     }
 
 
-    public Jugador(String nombre, LocalDate nacimiento)
-    {
-        super.name=nombre;
-        this.nacimiento=nacimiento;
+    public Jugador(String nombre, LocalDate nacimiento) {
+        super.setId();
+        super.name = nombre;
+        this.nacimiento = nacimiento;
     }
 
-    public Jugador()
-    {}
+    public Jugador() {
+    }
 
-    public String playerToCSV()
-    {
-        return this.name + ","+this.dorsal+","+this.getEdad()+","+is_alive;
+    public String playerToCSV() {
+        return this.getId() + "," + this.name + "," + this.dorsal + "," + this.getEdad() + "," + is_alive;
     }
 }
