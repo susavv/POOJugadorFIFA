@@ -53,14 +53,13 @@ public class OperationEquipo {
             while ((equipoReader = buffer.readLine()) != null) {
                 String[] data_readed = equipoReader.split(",");
                 Equipo equipo = new Equipo();
-                System.out.println(data_readed[0]);
                 equipo.setId(data_readed[0]);
                 equipo.setTeamName(data_readed[1]);
                 Tecnico tecnico = new Tecnico();
                 tecnico.setName(data_readed[2]);
                 equipo.setTecnicoEquipo(tecnico);
-                String[] jugadoresIds = data_readed[3].replace("{", "").replace("}", "").split("<>");
-                if (data_readed[3].contains("<>")) {
+                if (data_readed.length > 3 && data_readed[3].contains("<>")) {
+                    String[] jugadoresIds = data_readed[3].split("<>");
                     Jugador[] jugadores = new Jugador[jugadoresIds.length];
                     for (int i = 0; i < jugadoresIds.length; i++) {
                         jugadores[i] = readOnePlayer(jugadoresIds[i]);
