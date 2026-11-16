@@ -2,6 +2,7 @@ import db.Database;
 import models.Equipo;
 import models.Jugador;
 import models.Tecnico;
+import models.partido;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 
 import static operations.OperationEquipo.*;
 import static operations.OperationJugador.*;
+import static operations.OperationPartido.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -32,6 +35,10 @@ public class Main {
             System.out.println("6. Buscar Equipo");
             System.out.println("7. Mostrar Equipos");
             System.out.println("0. Salir");
+            System.out.println("*********** CRUD Partido *********** ");
+            System.out.println("8. Crear partido");
+            System.out.println("9. Mostrar partidos");
+            System.out.println("0. salir");
 
             opcion = leer.nextInt();
 
@@ -57,6 +64,12 @@ public class Main {
                 case 7:
                     showAllEquipos();
                     break;
+                case 8:
+                    newPartido();
+                    break;
+                case 9:
+                    showAllmatch();
+                    break;
                 case 0:
                     System.out.println("Nos vemos");
                     break;
@@ -66,7 +79,7 @@ public class Main {
 
             }
         }
-        while (opcion!=0);
+        while (opcion != 0);
 
     }
 
@@ -93,17 +106,37 @@ public class Main {
         tecnico.setClub(nombreEquipo);
         tecnico.setName(nombreTecnico);
         Jugador jugadores[] = {};
-        saveEquipo(new Equipo(tecnico, jugadores , nombreEquipo));
+        saveEquipo(new Equipo(tecnico, jugadores, nombreEquipo));
     }
 
+    public static void newPartido() {
+        Equipo equipolocal = findEquipoPartido("Ingrese ID del equipo local");
+        Equipo equipoVisitante = findEquipoPartido("Ingrese ID del equipo visitante");
+        savePartido(new partido(equipolocal.getId(), equipoVisitante.getId()));
+    }
+
+    public static Equipo findEquipoPartido(String text) {
+        Scanner leer = new Scanner(System.in);
+        Equipo tmp = null;
+        while (tmp == null) {
+            System.out.println(text);
+            String equipoId = leer.next();
+            tmp = readOneEquipo(equipoId);
+            if (tmp == null) {
+                System.out.println("Equipo no encontrado");
+            }
+        }
+        return tmp;
+    }
 
     public static void findPlayer() {
         Scanner leer = new Scanner(System.in);
-        System.out.println("Ingrese el jugador a buscar");
-        readOnePlayer(leer.next());
+        System.out.println("Ingrese el ID del jugador a buscar");
+        Jugador tmp = readOnePlayer(leer.next());
+        System.out.println(tmp);
     }
 
-    public static void assignPlayer(){
+    public static void assignPlayer() {
         Scanner leer = new Scanner(System.in);
 
         System.out.println("Equipos ==");
@@ -116,7 +149,7 @@ public class Main {
         String jugadorId = leer.next();
         Equipo equipo = readOneEquipo(equipoId);
         Jugador jugador = readOnePlayer(jugadorId);
-        Jugador[] plantilla = new  Jugador[equipo.getPlantilla().length + 1];
+        Jugador[] plantilla = new Jugador[equipo.getPlantilla().length + 1];
         for (int i = 0; i < equipo.getPlantilla().length; i++) {
             plantilla[i] = equipo.getPlantilla()[i];
         }
@@ -137,5 +170,9 @@ public class Main {
 
     public static void showAllEquipos() {
         readEquipos();
+    }
+
+    public static void showAllmatch() {
+        readmatch();
     }
 }
