@@ -54,14 +54,13 @@ public class Equipo {
     }
 
     public String equipoToCSV() {
-        StringBuilder players = new StringBuilder("{");
+        String players = "";
         for (int i = 0; i < plantilla.length; i++) {
-            players.append(plantilla[i].getId());
+            players += plantilla[i].getId();
             if (i < plantilla.length - 1) {
-                players.append("<>");
+                players +="<>";
             }
         }
-        players.append("}");
         return this.getId() + "," + this.getTeamName() + "," + this.getTecnicoEquipo().getName() + "," + players;
     }
 }
